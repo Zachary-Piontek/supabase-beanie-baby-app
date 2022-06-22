@@ -16,13 +16,19 @@ export function beanieDiv({ beanie }) {
     const p = document.createElement('p');
     const a = document.createElement('a');
 
-
+    
     p.textContent = beanie.title;
     li.classList.add('beanie-box');
+    
     img.src = beanie.image;
-    a.href = beanie.link;
+    // a.href = beanie.link;
+    // console.log(beanie.link);
+    // console.log(beanie);
+    a.href = `/detail/?id=${beanie.id}`;
 
-    li.append(a, p, img);
+    a.append(p, img);
+
+    li.append(a);
 
     return li;
 }

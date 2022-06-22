@@ -33,9 +33,3 @@ footer {
     justify-content: flex-end;
     background-color: var(--footer-background);
 }
-
-img {
-    width: 150px;
-    display: flex;
-    flex-direction: column;
-}
