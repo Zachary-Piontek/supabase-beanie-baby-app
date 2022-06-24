@@ -1,5 +1,6 @@
 export default function createFilter(form, { handleFilter }) {
     
+    const nameInput = form.querySelectorAll('input');
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -11,7 +12,8 @@ export default function createFilter(form, { handleFilter }) {
     // console.log('name');
     // console.log('title');
 
-    return () => {
+    return ({ name }) => {
+        nameInput.value = name;
         // console.log();
     };
 
