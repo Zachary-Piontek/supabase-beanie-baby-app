@@ -10,6 +10,7 @@ import createPages from './components/pages.js';
 let beanies = [];
 let name = '';
 let color = '';
+let page = '';
 
 // write handler functions
 async function handlePageLoad() {
@@ -37,7 +38,11 @@ function handleFilter(name, color) {
     // console.log(params.toString()); // why does it not stay in console but shows in url? only flashes quickly on it. --> needed to add handlePageLoad params to show value in console
 }
 function handlePages(change) {
-    console.log(change);
+    // console.log(change); checking math logic on pages
+    page += change;
+    const params = new URLSearchParams(window.location.search);
+    params.set('page', page);
+    window.location.search = params.toString();
 }
 
 // Roll-up display function that renders (calls with state) each component
