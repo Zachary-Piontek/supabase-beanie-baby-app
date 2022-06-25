@@ -3,7 +3,7 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsI
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-export async function getBeanies(name, color) {
+export async function getBeanies(name, color, { start, end }) {
     let query = client
     
         .from('beanie_babies')
@@ -15,6 +15,8 @@ export async function getBeanies(name, color) {
     if (color) {
         query = query.ilike('color', `${color}`);
     }
+
+    query = query.range(start, end);
 
     const response = await query;
     return response.data;

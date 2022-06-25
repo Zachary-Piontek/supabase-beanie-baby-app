@@ -11,14 +11,18 @@ let beanies = [];
 let name = '';
 let color = '';
 let page = '';
+let pageSize = 5;
 
 // write handler functions
 async function handlePageLoad() {
     const params = new URLSearchParams(window.location.search);
     name = params.get('name');
     color = params.get('color');
-    console.log(name, color);
-    beanies = await getBeanies(name, color);
+    page = Number(params.get('page'));
+    // console.log(name, color);
+    const start = (page - 1) * pageSize;
+    const end = (page * pageSize) - 1;
+    beanies = await getBeanies(name, color, { start, end });
     display();
 }
 // Create each component: 
