@@ -4,6 +4,7 @@ import { getBeanies } from './services/services-beanies.js';
 // import component creators
 import createBeanieList from './components/beanie-list.js';
 import createFilter from './components/filter.js';
+import createPages from './components/pages.js';
 
 // declare state variables
 let beanies = [];
@@ -22,11 +23,12 @@ async function handlePageLoad() {
 // Create each component: 
 const Filter = createFilter(document.querySelector('.filter'), { handleFilter });
 const beanieList = createBeanieList(document.querySelector('#beanie-list'));
+const Pages = createPages(document.querySelector('#pages'), { handlePages });
 
 // - pass in the root element via querySelector
 // - pass any needed handler functions as properties of an actions object 
 function handleFilter(name, color) {
-    console.log(name, color);
+    // console.log(name, color);
     const params = new URLSearchParams(window.location.search);
     params.set('name', name);
     params.set('color', color);
@@ -34,11 +36,14 @@ function handleFilter(name, color) {
     window.location.search = params.toString();
     // console.log(params.toString()); // why does it not stay in console but shows in url? only flashes quickly on it. --> needed to add handlePageLoad params to show value in console
 }
-
+function handlePages(change) {
+    console.log(change);
+}
 
 // Roll-up display function that renders (calls with state) each component
 function display() {
     Filter({ name, color });
+    Pages();
     // Call each component passing in props that are the pieces of state this component needs
     beanieList({ beanies });
 }
