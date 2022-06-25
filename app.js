@@ -11,14 +11,14 @@ let beanies = [];
 let name = '';
 let color = '';
 let page = '';
-let pageSize = 5;
+let pageSize = 25;
 
 // write handler functions
 async function handlePageLoad() {
     const params = new URLSearchParams(window.location.search);
     name = params.get('name');
     color = params.get('color');
-    page = Number(params.get('page'));
+    page = Number(params.get('page')) || 1;
     // console.log(name, color);
     const start = (page - 1) * pageSize;
     const end = (page * pageSize) - 1;
@@ -41,18 +41,19 @@ function handleFilter(name, color) {
     window.location.search = params.toString();
     // console.log(params.toString()); // why does it not stay in console but shows in url? only flashes quickly on it. --> needed to add handlePageLoad params to show value in console
 }
-function handlePages(change) {
+function handlePages(change, pageSize) {
     // console.log(change); checking math logic on pages
     page += change;
     const params = new URLSearchParams(window.location.search);
     params.set('page', page);
+    params.set('pageSize', pageSize);
     window.location.search = params.toString();
 }
 
 // Roll-up display function that renders (calls with state) each component
 function display() {
     Filter({ name, color });
-    Pages();
+    Pages({ page, pageSize });
     // Call each component passing in props that are the pieces of state this component needs
     beanieList({ beanies });
 }
