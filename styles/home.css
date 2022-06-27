@@ -16,3 +16,7 @@ ul {
     grid-auto-rows: minmax(100px, auto);
 }
 
+label {
+    margin-left: 75px;
+}
+

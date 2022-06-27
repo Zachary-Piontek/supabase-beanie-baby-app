@@ -3,11 +3,22 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsI
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-export async function getBeanies() {
-    const response = await client
+export async function getBeanies(name, color, { start, end }) {
+    let query = client
+    
         .from('beanie_babies')
-        .select('id, title, image');
+        .select(`id, title, image, color`);
+    
+    if (name) {
+        query = query.ilike('title', `%${name}%`); //NEEDTOFIX  when i implement .ilike, homepage beanies do not display  --> needed to change await response to await query because data was coming in before page load perhaps...FIXED
+    }
+    if (color) {
+        query = query.ilike('color', `${color}`);
+    }
 
+    query = query.range(start, end);
+
+    const response = await query;
     return response.data;
 }
 
